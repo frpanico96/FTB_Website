@@ -1,0 +1,32 @@
+body {
+  background-color: #00004d;
+}
+
+.card {
+  margin: 40% 0 0 0;
+}
+
+.card h5 {
+  text-align: center;
+}
+
+.card .form-group {
+  padding: 20px;
+}
+
+.card input {
+  padding: 10px;
+}
+
+.card .form-btn {
+  margin-top: 10px;
+}
+
+.card .form-btn .row {
+  padding: 10px;
+}
+
+.card .form-btn button {
+  width: 100%;
+}
+/*# sourceMappingURL=app.css.map */
