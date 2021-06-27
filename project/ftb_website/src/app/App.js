@@ -6,8 +6,10 @@ import Form from '../form/form';
 function App() {
   return (
     <div className="container-fluid form-container">
-      <div className="row align-items-center">
-        <div className="col-sm-4"></div>
+      <div className="row">
+        <div className="col-sm-4 version-col align-items-star" align="left">
+            ftbstudio_version: 0.0.1
+        </div>
         <div className="col-sm-4">
           <Form />
         </div>

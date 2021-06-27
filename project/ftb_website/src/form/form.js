@@ -15,7 +15,7 @@ class Form extends Component{
                                 className="form-control" 
                                 id="exampleInputEmail1" 
                                 aria-describedby="emailHelp" 
-                                placeholder="Enter email"/>
+                                placeholder="Username"/>
                             </div>
                             <div className="form-group">
                                 <input type="password" 
