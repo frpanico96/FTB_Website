@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import HttpService from '../service/http-service';
 
-let http = new HttpService();
+const http = new HttpService();
 
 class Form extends Component{
 
@@ -12,6 +12,7 @@ class Form extends Component{
         this.handleClick = this.handleClick.bind(this);
 
     }
+
     render(){
         return(
             <div className="card">
@@ -62,7 +63,7 @@ class Form extends Component{
     handleClick = (event) =>{
 
         event.preventDefault();
-        http.sdfcLogin()
+        http.dbLogin()
             .then(data => {
                 console.log('#handleClickData -> ' + JSON.stringify(data));
             })

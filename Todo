@@ -1,4 +1,4 @@
-Initialize the project
-install bootstrap 5
-install jquery
-
+La strada SFDC non sembra essere percorribile per diverse limitazioni della piattaforma.
+Bisogna dunque identificare un DB online che permetta di accedervi tramite http:// e che non abbia forte limitazioni
+Un possibile candidato é
+	restdb.io (leggere documentazione)
