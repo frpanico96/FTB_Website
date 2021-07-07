@@ -23,14 +23,14 @@ class Form extends Component{
                             <div className="form-group">
                                 <input type="email" 
                                 className="form-control" 
-                                id="exampleInputEmail1" 
+                                id="form-username" 
                                 aria-describedby="emailHelp" 
                                 placeholder="Username"/>
                             </div>
                             <div className="form-group">
                                 <input type="password" 
                                 className="form-control" 
-                                id="exampleInputPassword1" 
+                                id="form-password" 
                                 placeholder="Password"/>
                             </div>
                             <div className="form-btn">
@@ -63,16 +63,26 @@ class Form extends Component{
     handleClick = (event) =>{
 
         event.preventDefault();
-        http.dbLogin()
+        var inputs = {}; 
+        inputs['username'] = document.getElementById('form-username').value;
+        inputs['password'] = document.getElementById('form-password').value;
+        console.log('inputsObj -> ' + JSON.stringify(inputs));
+        http.dbLogin(inputs)
             .then(data => {
                 console.log('#handleClickData -> ' + JSON.stringify(data));
+                if(data[0]){
+                    console.log('intoStatement');
+                    var accountObj = data[0];
+                    console.log('accountId -> ' + accountObj['_id']);
+                    window.location.href = '/home/'+accountObj['_id'];
+                }
             })
             .catch(error => {
-                console.log('#handleClickError -> ' + JSON.stringify(error));
-            })
-            ;
+                console.log('#handleClickError -> ' + error);
+            });
 
     }
 }
+
 
 export default Form;
