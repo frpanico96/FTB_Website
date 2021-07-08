@@ -8,7 +8,8 @@ class HttpService {
     dbLogin = (inputs) =>{
         /*eslint-disable*/
         var accountEndpoint = dbEndpoint + '/rest/ftb-account';
-        var query = '?q={"username" : \"' + inputs['username'] + '\" }';
+        var query = '?q={"$and": [{"username" : \"' + inputs['username'] + '\" },'
+        +'{"password" : \"'+inputs['password']+'\" }]}';
         var getAccountEndpoint = accountEndpoint + query;
         var promise = new Promise((resolve, reject) => {
 
