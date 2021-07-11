@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import HttpService from '../service/http-service';
 
+//components
+import Navbar from '../layout-components/navbar';
+
 const http = new HttpService();
 
 class Home extends Component{
@@ -8,7 +11,12 @@ class Home extends Component{
     render(){
         return(
             <div className="container-fluid">
-                <h1>Ciao Daniele</h1>
+                {/* NavBar row */}
+                <div className="row">
+                    <div className="col-sm-12 navbar-col">
+                        <Navbar/>
+                    </div>
+                </div>
             </div>
         )
     }

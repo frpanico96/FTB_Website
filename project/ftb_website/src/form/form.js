@@ -120,18 +120,24 @@ class Form extends Component{
         //messageStrings
         let accountNotFound = 'Account Not Found: Username or Password wrong. If you haven\'t registerd yet do it now!';
         let alreadyRegistered = 'Account is already registered, Sign In! If you have forgotten your password contact your administrator';
+        //variables to add controls and not make the code fails
+        let loadingSpinner = null;
+        let classListAlert = null;
+        let clickedBtn = null;
 
         let idEvent = event.target.id;
         console.log('IdEvent -> '+ idEvent);
         event.preventDefault();
         this.setState({loading: true});
-        var clickedBtn = document.getElementById(idEvent);
-        var loadingSpinner = clickedBtn.firstChild.classList;
-        var classListAlert = document.getElementById('login-alert').classList;
-        if(!(classListAlert.contains(visuallyHidden))){
-            classListAlert.add(visuallyHidden);
+        clickedBtn = document.getElementById(idEvent);
+        if(clickedBtn.firstChild !== null && clickedBtn.firstChild !== undefined){
+            loadingSpinner = clickedBtn.firstChild.classList;
+            classListAlert = document.getElementById('login-alert').classList;
+            if(!(classListAlert.contains(visuallyHidden))){
+                classListAlert.add(visuallyHidden);
+            }
+            loadingSpinner.remove(visuallyHidden);
         }
-        loadingSpinner.remove(visuallyHidden);
         var inputs = {}; 
         inputs['username'] = document.getElementById('form-username').value;
         inputs['password'] = document.getElementById('form-password').value;
@@ -140,19 +146,23 @@ class Form extends Component{
         http.dbLogin(inputs)
             .then(data => {
                 console.log('#handleClickData -> ' + JSON.stringify(data));
-                loadingSpinner.add('visually-hidden');
+                if(loadingSpinner !== null){
+                    loadingSpinner.add('visually-hidden');
+                }
                 if(data[0]){
                     if(idEvent === signUp){
                         this.setState({
                             loading: false,
                             errorMessage: alreadyRegistered
                         });
-                        classListAlert.remove(visuallyHidden);
+                        if(classListAlert !== null){
+                            classListAlert.remove(visuallyHidden);
+                        }
                     } else {
                         console.log('intoStatement');
-                        var accountObj = data[0];
+                        let accountObj = data[0];
                         console.log('accountId -> ' + accountObj['_id']);
-                        window.history.pushState('redirectToHome','','/home/'+accountObj['_id']);
+                        window.history.pushState('redirectToHome','',+'/' + accountObj['_id'] +'/home');
                         ns.postNotification(NOTIF_RENDER,'');
                         console.log('here');
                     }
@@ -161,7 +171,9 @@ class Form extends Component{
                         loading: false,
                         errorMessage: accountNotFound
                     });
-                    classListAlert.remove(visuallyHidden);
+                    if(classListAlert !== null){
+                        classListAlert.remove(visuallyHidden);
+                    }
                 }
             })
             .catch(error => {

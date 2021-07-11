@@ -48,4 +48,9 @@ span {
 .spinner-border {
   margin-right: 5px;
 }
+
+.navbar-col {
+  margin: 0;
+  padding: 0;
+}
 /*# sourceMappingURL=app.css.map */

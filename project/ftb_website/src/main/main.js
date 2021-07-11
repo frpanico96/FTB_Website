@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-
+import {
+    BrowserRouter as Router,
+    Switch,
+    useLocation
+  } from "react-router-dom";
 //Service
 import NotificationService, {NOTIF_RENDER} from '../service/notification-service';
 
@@ -22,11 +26,14 @@ class Main extends Component{
         //Binding
         this.renderElement = this.renderElement.bind(this);
         this.renderChange = this.renderChange.bind(this);
+        this.parseUrl = this.parseUrl.bind(this);
+        this.swithchComponent = this.swithchComponent.bind(this);
+        //this.getLocation = this.getLocation.bind(this);
     }
 
     componentDidMount(){
         ns.addObserver(NOTIF_RENDER, this, this.renderChange);
-        window.history.pushState('setInitialPage','','/');
+        this.swithchComponent(window.location.href);
     }
 
     componentWillUnmount(){
@@ -35,9 +42,11 @@ class Main extends Component{
 
     render(){
         return(
-            <div>
-                {this.renderElement()}
-            </div>
+            <Router>
+                <div>
+                    {this.renderElement()}
+                </div>
+            </Router>
         )
     }
 
@@ -59,7 +68,27 @@ class Main extends Component{
                 homePage  : true
             });
         }
-    } 
+    }
+    parseUrl = (url) => {
+        /*eslint-disable*/
+        let parsedUrl = url.toString().split('/');
+        return parsedUrl;
+    }
+    swithchComponent = (url) => {
+        let parsedUrl = this.parseUrl(url);
+        let indexHome = parsedUrl.indexOf('home');
+        console.log(indexHome);
+        if(indexHome > -1){
+            this.setState({
+                loginPage : false,
+                homePage  : true
+            })
+        }else{
+            console.log('/home not found');
+        }
+    }
+
+
 }
 
 export default Main;
