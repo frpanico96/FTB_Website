@@ -130,7 +130,7 @@ class Form extends Component{
         event.preventDefault();
         this.setState({loading: true});
         clickedBtn = document.getElementById(idEvent);
-        if(clickedBtn.firstChild !== null && clickedBtn.firstChild !== undefined){
+        if(clickedBtn != null && clickedBtn.firstChild !== null && clickedBtn.firstChild !== undefined){
             loadingSpinner = clickedBtn.firstChild.classList;
             classListAlert = document.getElementById('login-alert').classList;
             if(!(classListAlert.contains(visuallyHidden))){
@@ -167,12 +167,18 @@ class Form extends Component{
                         console.log('here');
                     }
                 }else{
-                    this.setState({
-                        loading: false,
-                        errorMessage: accountNotFound
-                    });
-                    if(classListAlert !== null){
-                        classListAlert.remove(visuallyHidden);
+                    //Data null elegible for SignUp
+                    if(idEvent === signUp){
+                        
+                    } else {
+                    //SignIn
+                        this.setState({
+                            loading: false,
+                            errorMessage: accountNotFound
+                        });
+                        if(classListAlert !== null){
+                            classListAlert.remove(visuallyHidden);
+                    }
                     }
                 }
             })
