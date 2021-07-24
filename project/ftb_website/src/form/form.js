@@ -12,7 +12,7 @@ class Form extends Component{
 
         this.state = {
             loading: false,
-            errorMessage: ''
+            message: ''
         };
 
         //Binding
@@ -43,7 +43,13 @@ class Form extends Component{
                         <div className="visually-hidden alert alert-warning d-flex align-items-center" id="login-alert" role="alert">
                             <svg className="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlinkHref="#info-fill"/></svg>
                             <div>
-                                {this.state.errorMessage}
+                                {this.state.message}
+                            </div>
+                        </div>
+                        <div className="visually-hidden alert alert-success d-flex align-items-center" id="register-success" role="alert">
+                            <svg className="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlinkHref="#info-fill"/></svg>
+                            <div>
+                                {this.state.message}
                             </div>
                         </div>
                         <div className="card-body">
@@ -120,9 +126,12 @@ class Form extends Component{
         //messageStrings
         let accountNotFound = 'Account Not Found: Username or Password wrong. If you haven\'t registerd yet do it now!';
         let alreadyRegistered = 'Account is already registered, Sign In! If you have forgotten your password contact your administrator';
+        let registerSuccess = 'Succesfully registered Account: ';
+        let registerError = 'Registration failed. Try again or if the error is persistent contact you administrator.';
         //variables to add controls and not make the code fails
         let loadingSpinner = null;
         let classListAlert = null;
+        let classListSuccess = null;
         let clickedBtn = null;
 
         let idEvent = event.target.id;
@@ -133,6 +142,7 @@ class Form extends Component{
         if(clickedBtn != null && clickedBtn.firstChild !== null && clickedBtn.firstChild !== undefined){
             loadingSpinner = clickedBtn.firstChild.classList;
             classListAlert = document.getElementById('login-alert').classList;
+            classListSuccess = document.getElementById('register-success').classList;
             if(!(classListAlert.contains(visuallyHidden))){
                 classListAlert.add(visuallyHidden);
             }
@@ -153,7 +163,7 @@ class Form extends Component{
                     if(idEvent === signUp){
                         this.setState({
                             loading: false,
-                            errorMessage: alreadyRegistered
+                            message: alreadyRegistered
                         });
                         if(classListAlert !== null){
                             classListAlert.remove(visuallyHidden);
@@ -168,13 +178,37 @@ class Form extends Component{
                     }
                 }else{
                     //Data null elegible for SignUp
+                    console.log('SignUp condition');
                     if(idEvent === signUp){
-                        
+                        http.register(inputs)
+                            .then(data => {
+                                if(data[0]){
+                                    let accountObj = data[0];
+                                    console.log('accountId_registered -> ' + accountObj);
+                                    this.setState({
+                                        loading: false,
+                                        message: registerSuccess + accountObj['username']
+                                    })
+                                    if(classListSuccess !== null){
+                                        classListSuccess.remove(visuallyHidden);
+                                    }
+                                    window.history.pushState('redirectToHome','',+'/' + accountObj['_id'] +'/home');
+                                    ns.postNotification(NOTIF_RENDER,'');
+                                }else{
+                                    this.setState({
+                                        loading: false,
+                                        message: registerError
+                                    });
+                                    if(classListAlert !== null){
+                                        classListAlert.remove(visuallyHidden);
+                                    }
+                                }
+                            })
                     } else {
                     //SignIn
                         this.setState({
                             loading: false,
-                            errorMessage: accountNotFound
+                            message: accountNotFound
                         });
                         if(classListAlert !== null){
                             classListAlert.remove(visuallyHidden);
