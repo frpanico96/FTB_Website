@@ -127,6 +127,7 @@ class Form extends Component{
         let accountNotFound = 'Account Not Found: Username or Password wrong. If you haven\'t registerd yet do it now!';
         let alreadyRegistered = 'Account is already registered, Sign In! If you have forgotten your password contact your administrator';
         let registerSuccess = 'Succesfully registered Account: ';
+        let redirectNotif = '.\nYou will be shortly redirected to your personal homepage';
         let registerError = 'Registration failed. Try again or if the error is persistent contact you administrator.';
         //variables to add controls and not make the code fails
         let loadingSpinner = null;
@@ -182,18 +183,19 @@ class Form extends Component{
                     if(idEvent === signUp){
                         http.register(inputs)
                             .then(data => {
-                                if(data[0]){
-                                    let accountObj = data[0];
-                                    console.log('accountId_registered -> ' + accountObj);
+                                if(data){
+                                    let accountObj = data;
                                     this.setState({
                                         loading: false,
-                                        message: registerSuccess + accountObj['username']
+                                        message: registerSuccess + accountObj['username'] + redirectNotif
                                     })
                                     if(classListSuccess !== null){
                                         classListSuccess.remove(visuallyHidden);
                                     }
-                                    window.history.pushState('redirectToHome','',+'/' + accountObj['_id'] +'/home');
-                                    ns.postNotification(NOTIF_RENDER,'');
+                                    setTimeout(() => {
+                                        window.history.pushState('redirectToHome','',+'/' + accountObj['_id'] +'/home');
+                                        ns.postNotification(NOTIF_RENDER,'');
+                                    }, 3000);
                                 }else{
                                     this.setState({
                                         loading: false,
