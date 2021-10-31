@@ -1,4 +1,31 @@
-La strada SFDC non sembra essere percorribile per diverse limitazioni della piattaforma.
-Bisogna dunque identificare un DB online che permetta di accedervi tramite http:// e che non abbia forte limitazioni
-Un possibile candidato é
-	restdb.io (leggere documentazione)
+PLAYERS_API
+
+https://data.nba.net/10s/prod/v1/2021/players.json
+
+TODAY_API
+
+http://data.nba.net/10s/prod/v1/today.json
+
+DataModel:
+	Player:
+		FirstName 
+		LastName 
+		PlayerId --> Unique Id
+		NbaTeamId --> Lookup al team
+		UserTeamId
+		Number 
+		Position
+	Team:
+		NickName
+		TeamId
+		Tricode
+	
+	Calendar:
+		HomeTeam --> Lookup a team
+		GuestTeam --> Lookup a team
+		Date
+		HomeTeamScore
+		GuestTeamScore
+		FinalScore
+		Winner -> 1 HomeTeam; 2 GuestTeam
+		CalendarId

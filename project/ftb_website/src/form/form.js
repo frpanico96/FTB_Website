@@ -39,7 +39,7 @@ class Form extends Component{
                     ftbstudio_version: 0.0.1
                     </div>
                     <div className="col-sm-4">
-                    <div className="card">
+                    <div className="card form-card">
                         <div className="visually-hidden alert alert-warning d-flex align-items-center" id="login-alert" role="alert">
                             <svg className="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlinkHref="#info-fill"/></svg>
                             <div>
@@ -178,7 +178,7 @@ class Form extends Component{
                         console.log('here');
                     }
                 }else{
-                    //Data null elegible for SignUp
+                    /* if data are null, the account is eligible for signup */
                     console.log('SignUp condition');
                     if(idEvent === signUp){
                         http.register(inputs)

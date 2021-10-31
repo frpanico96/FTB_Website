@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+/* HttpService import */
 import HttpService from '../service/http-service';
+/* Child Components */
+import HomeCard from './home-cards';
 
 //components
 import Navbar from '../layout-components/navbar';
@@ -17,7 +20,9 @@ class Home extends Component{
                         <Navbar/>
                     </div>
                 </div>
+                <HomeCard/>
             </div>
+            
         )
     }
 
