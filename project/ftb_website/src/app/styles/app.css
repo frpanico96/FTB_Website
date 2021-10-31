@@ -1,0 +1,72 @@
+body {
+  background-color: #00004d;
+}
+
+.version-col {
+  font-size: 10px;
+  color: #ffffff;
+}
+
+div h1 {
+  margin: 20%;
+  text-align: center;
+  color: white;
+}
+
+.form-card {
+  margin: 40% 0 0 0;
+}
+
+.form-card h5 {
+  text-align: center;
+}
+
+.form-card .form-group {
+  padding: 20px;
+}
+
+.form-card input {
+  padding: 10px;
+}
+
+.form-card .form-btn {
+  margin-top: 10px;
+}
+
+.form-card .form-btn .row {
+  padding: 10px;
+}
+
+.form-card .form-btn button {
+  width: 100%;
+}
+
+span {
+  font-size: 1.3rem;
+}
+
+.spinner-border {
+  margin-right: 5px;
+}
+
+.navbar-col {
+  margin: 0;
+  padding: 0;
+}
+
+.home {
+  margin: 10% 0;
+}
+
+.home h5 {
+  text-align: center;
+}
+
+table .home-table-col {
+  text-align: center;
+}
+
+table .home-table-row {
+  text-align: center;
+}
+/*# sourceMappingURL=app.css.map */
