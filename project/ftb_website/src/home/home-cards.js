@@ -6,23 +6,27 @@ import HomeAccordion from "./home-accordion";
 const mockTeams = 
 [
     {
+        _id : '1',
         name: 'MyTeam1',
         shortName: 'MT1',
         players:
             [
                 {
+                    _id : '01',
                     number: '1',
                     role: 'G',
                     name: 'MT1player1',
                     avgPts: '23.23'
                 },
                 {
+                    _id : '02',
                     number: '2',
                     role: 'F',
                     name: 'MT1player2',
                     avgPts: '23.23'
                 },
                 {
+                    _id : '03',
                     number: '3',
                     role: 'C',
                     name: 'MT1player3',
@@ -31,23 +35,27 @@ const mockTeams =
             ]
     },
     {
+        _id: '2',
         name: 'MyTeam2',
         shortName: 'MT2',
         players:
         [
             {
+                _id : '11',
                 number: '1',
                 role: 'G',
                 name: 'MT2player1',
                 avgPts: '23.23'
             },
             {
+                _id : '12',
                 number: '2',
                 role: 'F',
                 name: 'MT2player2',
                 avgPts: '23.23'
             },
             {
+                _id : '13',
                 number: '3',
                 role: 'C',
                 name: 'MT2player3',
@@ -56,23 +64,27 @@ const mockTeams =
         ]
     },
     {
+        _id: '3',
         name: 'MyTeam3',
         shortName: 'MT3',
         players:
         [
             {
+                _id : '21',
                 number: '1',
                 role: 'G',
                 name: 'MT3player1',
                 avgPts: '23.23'
             },
             {
+                _id : '22',
                 number: '2',
                 role: 'F',
                 name: 'MT3player2',
                 avgPts: '23.23'
             },
             {
+                _id : '23',
                 number: '3',
                 role: 'C',
                 name: 'MT3player3',
