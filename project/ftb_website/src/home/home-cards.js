@@ -97,6 +97,15 @@ const mockTeams =
     }   
 ];
 
+const mockChampionship = 
+[
+    {
+        _id : '0',
+        name: 'Championship 1',
+        standings: '[{"_id": "1","shortName":"MT1", "name":"MyTeam1","position": "1", "W":"3", "L": "0"}]'
+    }
+];
+
 class HomeCard extends Component
 {
     constructor(props)
