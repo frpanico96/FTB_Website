@@ -9,6 +9,7 @@ const mockTeams =
         _id : '1',
         name: 'MyTeam1',
         shortName: 'MT1',
+        championshipsId: '0',
         players:
             [
                 {
@@ -38,6 +39,7 @@ const mockTeams =
         _id: '2',
         name: 'MyTeam2',
         shortName: 'MT2',
+        championshipsId: '1',
         players:
         [
             {
@@ -67,6 +69,7 @@ const mockTeams =
         _id: '3',
         name: 'MyTeam3',
         shortName: 'MT3',
+        championshipsId: '2',
         players:
         [
             {
@@ -106,9 +109,6 @@ class HomeCard extends Component
             teams : mockTeams,
             championships : []
         }
-
-        /* Bindings */
-        this.renderTeams = this.renderTeams.bind(this);
     }
 
     render()
@@ -120,9 +120,7 @@ class HomeCard extends Component
                         <div className="card">
                             <div className="card-body">
                                 <h5 className="card-title">My Teams</h5>
-                                <div className="accordion" id="accordionExample">
-                                    {this.renderTeams()}
-                                </div>
+                                <HomeAccordion teams={this.state.teams}/>
                             </div>
                         </div>
                     </div>
@@ -140,14 +138,7 @@ class HomeCard extends Component
             )
     }
 
-    renderTeams = () =>
-    {
-        console.log(JSON.stringify(this.state.teams));
-        const teamList = this.state.teams.map(
-            (team) => <HomeAccordion team={team} key={team.name}/> );
 
-        return (teamList);
-    }
 
 }
 
