@@ -35,6 +35,11 @@ class HomeAccordion extends Component
         return (teamList);
     }
 
+    renderChampionships = () => 
+    {
+        //console.log(JSON.stringify(this.props))
+    }
+
 }
 
 export default HomeAccordion;

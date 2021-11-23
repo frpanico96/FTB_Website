@@ -3,16 +3,28 @@ import React,{Component} from "react";
 
 class HomeAccordionTableRow extends Component
 {
+    constructor(props)
+    {
+        super(props);
+        console.log('ROWS >>> ' + JSON.stringify(this.props.row));
+        
+        /* Binding */
+        this.renderRow = this.renderRow.bind(this);
+    }
+
     render()
     {
         return(
             <tr className="home-table-row">
-            <th scope="row">{this.props.player.number}</th>
-            <td>{this.props.player.role}</td>
-            <td>{this.props.player.name}</td>
-            <td>{this.props.player.avgPts}</td>
+                {this.renderRow()}
             </tr>
-        )
+        )   
+    }
+
+    renderRow = () =>
+    {
+        const rows = this.props.row.map( (singleRow) => <td key={singleRow.value}>{singleRow.value}</td>);
+        return rows;
     }
 }
 

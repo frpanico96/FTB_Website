@@ -2,6 +2,7 @@ import React, {Component} from "react";
 
 /* Child Components */
 import HomeAccordionTable from "./home-accordion-table";
+import {playerColumns} from "./home-accordion-table-definitions";
 
 /* Counter Variable to track accordion items */
 let counter = 0;
@@ -18,9 +19,13 @@ class HomeAccordionItem extends Component
         bodyControllerClassName: ''
     };
 
+    playerRowsObj = [];
+
     constructor(props)
     {
         super(props);
+        /* build the row object for the table */
+        this.buildPlayerRowObj();
         /* Set the counter to create correctly accordion items */
         ++counter;  
         console.log('HOMEACCORDION_counter >>> ' + counter);
@@ -30,6 +35,7 @@ class HomeAccordionItem extends Component
             this.renderObjConstructor(counter);
             console.log('HOMEACCORDION_renderObj >>> '+JSON.stringify(this.renderObj));
         }
+        
     }
     render()
     {
@@ -42,7 +48,7 @@ class HomeAccordionItem extends Component
                 </h2>
                 <div id={this.renderObj.bodyControllerId} className={this.renderObj.bodyControllerClassName} aria-labelledby={this.renderObj.accordionHeaderId} data-bs-parent="#accordionExample">
                 <div className="accordion-body">
-                    <HomeAccordionTable players={this.props.team.players} key={this.props.team.shortName}/>
+                    <HomeAccordionTable rows={this.playerRowsObj} columns={playerColumns} key={this.props.team.shortName}/>
                 </div>
                 </div>
             </div>
@@ -65,6 +71,22 @@ class HomeAccordionItem extends Component
             this.renderObj.buttonClassName = 'accordion-button collapsed';
             this.renderObj.bodyControllerClassName = 'accordion-collapse collapse';
         }
+    }
+
+    /* Build the row object to pass to the home-accordion-table */
+    buildPlayerRowObj()
+    {
+        /* Items to put in table row: number, name, role, avg. points */
+        console.log('TEAMS_BUILD_ROW >>>' + JSON.stringify(this.props.team));
+        this.props.team.players.forEach(player => {
+            let tempObj = [];
+            tempObj.push({name:"number", value: player.number});
+            tempObj.push({name:"role", value: player.role});
+            tempObj.push({name:"name", value: player.name});
+            tempObj.push({name:"avgPts", value: player.avgPts});
+            this.playerRowsObj = [...this.playerRowsObj, tempObj];
+        });
+        
     }
 
 

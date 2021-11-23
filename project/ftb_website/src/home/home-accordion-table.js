@@ -1,16 +1,12 @@
 import React, {Component} from "react";
 /* Child Components */
 import HomeAccordionTableRow from "./home-accordion-table-row";
+import HomeAccordionTableColumn from "./home-accordion-table-column";
+
+let counter = 0;
 
 class HomeAccordionTable extends Component
 {
-    columnsObj = 
-    {
-        rowNumber : '#',
-        rowName : 'Name',
-        rowRole : 'Role',
-        rowAvgPts: 'Avg. Points'
-    }
 
     constructor(props)
     {
@@ -18,6 +14,7 @@ class HomeAccordionTable extends Component
         console.log('HOMEACCORDIONTABLE_props >>> ' + JSON.stringify(props));
         /* Bindings */
         this.renderRows = this.renderRows.bind(this);
+        this.renderColumns = this.renderColumns.bind(this);
     }
 
     render()
@@ -27,10 +24,7 @@ class HomeAccordionTable extends Component
                 <table className="table">
                     <thead>
                         <tr className="home-table-col">
-                        <th scope="col">{this.columnsObj.rowNumber}</th>
-                        <th scope="col">{this.columnsObj.rowRole}</th>
-                        <th scope="col">{this.columnsObj.rowName}</th>
-                        <th scope="col">{this.columnsObj.rowAvgPts}</th>
+                            {this.renderColumns()}
                         </tr>
                     </thead>
                     <tbody>
@@ -43,8 +37,15 @@ class HomeAccordionTable extends Component
 
     renderRows = () =>
     {
-        const playerTable = this.props.players.map( (player) => <HomeAccordionTableRow player={player} key={player._id}/>);
-        return playerTable;
+        console.log('ROWS_TABLE >>>' + JSON.stringify(this.props.rows));
+        const rows = this.props.rows.map( (row) => <HomeAccordionTableRow row={row} key={counter++}/>);
+        return rows;
+    }
+
+    renderColumns = () => 
+    {
+        const columns = this.props.columns.map( (column) => <HomeAccordionTableColumn column={column} key={column.name}/>);
+        return columns
     }
 }
 
