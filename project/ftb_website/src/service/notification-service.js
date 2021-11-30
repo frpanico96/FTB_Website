@@ -1,4 +1,5 @@
 export const NOTIF_RENDER = "notif_render";
+export const NOTIF_CHAMPIONSHIP = "notif_championship";
 
 let instance = null;
 var observers = {};

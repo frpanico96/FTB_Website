@@ -42,13 +42,13 @@ class HomeAccordionItem extends Component
         return(
             <div className="accordion-item">
                 <h2 className="accordion-header" id={this.renderObj.accordionHeaderId}>
-                <button className={this.renderObj.buttonClassName} type="button" data-bs-toggle="collapse" data-bs-target={this.renderObj.dataBsTarget} aria-expanded="true" aria-controls="collapseOne">
-                    {this.props.team.shortName} - {this.props.team.name}
+                <button className={this.renderObj.buttonClassName} name={this.props.team._id} onClick={(event) => this.handleClick(event)} type="button" data-bs-toggle="collapse" data-bs-target={this.renderObj.dataBsTarget} aria-expanded="true" aria-controls="collapseOne">
+                    {this.props.team.shortName} - {this.props.team.name} 
                 </button>
                 </h2>
                 <div id={this.renderObj.bodyControllerId} className={this.renderObj.bodyControllerClassName} aria-labelledby={this.renderObj.accordionHeaderId} data-bs-parent="#accordionExample">
                 <div className="accordion-body">
-                    <HomeAccordionTable rows={this.playerRowsObj} columns={playerColumns} key={this.props.team.shortName}/>
+                    <HomeAccordionTable rows={this.playerRowsObj} columns={playerColumns} key={this.props.team.shortName} isLoading={this.props.isLoading}/>
                 </div>
                 </div>
             </div>
@@ -89,6 +89,15 @@ class HomeAccordionItem extends Component
         
     }
 
+    /* Handle Click Event for the accordion section */
+    handleClick(event)
+    {
+        event.preventDefault();
+        console.log('EVENT_NAME >>> ' + event.target.name);
+        let teamId = event.target.name;
+        let switchTeamEvent = new CustomEvent('switch-team-event', { detail: {teamId: teamId}});
+        dispatchEvent(switchTeamEvent);
+    }
 
 }
 

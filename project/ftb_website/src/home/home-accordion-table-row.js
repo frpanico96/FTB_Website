@@ -6,7 +6,7 @@ class HomeAccordionTableRow extends Component
     constructor(props)
     {
         super(props);
-        console.log('ROWS >>> ' + JSON.stringify(this.props.row));
+        
         
         /* Binding */
         this.renderRow = this.renderRow.bind(this);
@@ -23,6 +23,7 @@ class HomeAccordionTableRow extends Component
 
     renderRow = () =>
     {
+        console.log('ROWS >>> ' + JSON.stringify(this.props.row));
         const rows = this.props.row.map( (singleRow) => <td key={singleRow.value}>{singleRow.value}</td>);
         return rows;
     }
