@@ -1,6 +1,9 @@
 import React, {Component} from "react";
 /* Child Components */
 import HomeAccordion from "./home-accordion";
+import HomeAccordionTable from "./home-accordion-table";
+import { championshipColumns } from "./home-accordion-table-definitions";
+
 
 /* Mock Teams and Championships */
 const mockTeams = 
@@ -102,12 +105,21 @@ const mockChampionship =
     {
         _id : '0',
         name: 'Championship 1',
-        standings: '[{"_id": "1","shortName":"MT1", "name":"MyTeam1","position": "1", "W":"3", "L": "0"}]'
+        standings: '['
+        +'{"_id": "1","shortName":"MT1", "name":"Team1","position": "1", "W":"3", "L": "0"},'
+        +'{"_id": "2","shortName":"MT2", "name":"Team2","position": "2", "W":"2", "L": "1"},'
+        +'{"_id": "3","shortName":"MT3", "name":"Team3","position": "3", "W":"1", "L": "2"}'
+        +']'
     }
 ];
 
+/* Instance of Child Components/Class */
+let rowChampionship;
+let isLoading = true;
+
 class HomeCard extends Component
 {
+
     constructor(props)
     {
         super(props);
@@ -118,7 +130,24 @@ class HomeCard extends Component
             teams : mockTeams,
             championships : []
         }
+        /* Method call to populate  */
+        this.switchTeam(null);
+
+        /* Binding */
+        this.switchTeam = this.switchTeam.bind(this);
+
     }
+
+    componentDidMount()
+    {
+        window.addEventListener("switch-team-event", this.switchTeam);
+    }
+
+    componentWillUnmount()
+    {
+        
+    }
+
 
     render()
     {
@@ -129,7 +158,7 @@ class HomeCard extends Component
                         <div className="card">
                             <div className="card-body">
                                 <h5 className="card-title">My Teams</h5>
-                                <HomeAccordion teams={this.state.teams}/>
+                                <HomeAccordion teams={this.state.teams} isLoading={isLoading}/>
                             </div>
                         </div>
                     </div>
@@ -139,12 +168,33 @@ class HomeCard extends Component
                         <div className="card">
                             <div className="card-body">
                                 <h5 className="card-title">My Championships</h5>
+                                <HomeAccordionTable rows={this.rowChampionship} columns={championshipColumns} isLoading={isLoading}/>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             )
+    }
+
+    switchTeam(event)
+    {
+        //console.log('HOME_CARD_EVENT >>> ' + JSON.stringify(event.detail));
+        let championshipId = mockTeams[0].championshipsId;
+        if(event !== null && event!== undefined)
+        {
+            championshipId = mockTeams[mockTeams.findIndex(element => element._id === event.detail.teamId)].championshipsId;
+        }
+        let championship = mockChampionship[mockChampionship.findIndex(element => element._id === championshipId)];
+        let standings = JSON.parse(championship.standings);
+        let rowChampionship = [];
+        Object.keys(standings).forEach(element => {
+            rowChampionship.push({name: element, value:standings[element]});
+        });
+        this.rowChampionship = rowChampionship;
+        isLoading = false;
+        console.log('HOME_CARD_ROWS >>> ' + JSON.stringify(rowChampionship));
+        
     }
 
 

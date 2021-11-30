@@ -13,6 +13,7 @@ class HomeAccordionTable extends Component
         super(props);
         console.log('HOMEACCORDIONTABLE_props >>> ' + JSON.stringify(props));
         /* Bindings */
+        this.renderTable = this.renderTable.bind(this);
         this.renderRows = this.renderRows.bind(this);
         this.renderColumns = this.renderColumns.bind(this);
     }
@@ -20,19 +21,37 @@ class HomeAccordionTable extends Component
     render()
     {
         return(
-            <div className="container-fluid home-accordion-table">
-                <table className="table">
-                    <thead>
-                        <tr className="home-table-col">
-                            {this.renderColumns()}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.renderRows()}
-                    </tbody>
-                </table>
+            <div className="container-fluid">
+                {this.renderTable()}
             </div>
         )
+    }
+
+    renderTable = () =>
+    {
+        if(this.props.isLoading)
+        {
+            return(<div className="spinner-grow text-secondary" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>)
+        }
+        else
+        {
+            return(
+                <div className="container-fluid home-accordion-table">
+                    <table className="table">
+                        <thead>
+                            <tr className="home-table-col">
+                                {this.renderColumns()}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.renderRows()}
+                        </tbody>
+                    </table>
+                </div>
+            )
+        }
     }
 
     renderRows = () =>
