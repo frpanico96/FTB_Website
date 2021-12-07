@@ -106,15 +106,14 @@ const mockChampionship =
         _id : '0',
         name: 'Championship 1',
         standings: '['
-        +'{"_id": "1","shortName":"MT1", "name":"Team1","position": "1", "W":"3", "L": "0"},'
-        +'{"_id": "2","shortName":"MT2", "name":"Team2","position": "2", "W":"2", "L": "1"},'
-        +'{"_id": "3","shortName":"MT3", "name":"Team3","position": "3", "W":"1", "L": "2"}'
+        +'{"position": "1","shortName":"MT1", "name":"Team1", "W":"3", "L": "0"},'
+        +'{"position": "2","shortName":"MT2", "name":"Team2", "W":"2", "L": "1"},'
+        +'{"position": "3","shortName":"MT3", "name":"Team3", "W":"1", "L": "2"}'
         +']'
     }
 ];
 
 /* Instance of Child Components/Class */
-let rowChampionship;
 let isLoading = true;
 
 class HomeCard extends Component
@@ -179,21 +178,30 @@ class HomeCard extends Component
 
     switchTeam(event)
     {
-        //console.log('HOME_CARD_EVENT >>> ' + JSON.stringify(event.detail));
         let championshipId = mockTeams[0].championshipsId;
         if(event !== null && event!== undefined)
         {
             championshipId = mockTeams[mockTeams.findIndex(element => element._id === event.detail.teamId)].championshipsId;
         }
         let championship = mockChampionship[mockChampionship.findIndex(element => element._id === championshipId)];
-        let standings = JSON.parse(championship.standings);
-        let rowChampionship = [];
-        Object.keys(standings).forEach(element => {
-            rowChampionship.push({name: element, value:standings[element]});
-        });
-        this.rowChampionship = rowChampionship;
-        isLoading = false;
-        console.log('HOME_CARD_ROWS >>> ' + JSON.stringify(rowChampionship));
+        if(championship !== null && championship !== undefined && championship.standings !== null && championship.standings !== undefined)
+        {
+            let standings = JSON.parse(championship.standings);
+            let rowChampionship = [];
+            standings.forEach(element => {
+                let tempObj = [];
+                console.log('HOME-CARD_ELEMENT ' + JSON.stringify(element));
+                for(const key in element)
+                {
+                    console.log(`HOME-CARD_KEYVALUEPAIR ${key} - ${element[key]}`);
+                    tempObj.push({name: key, value: element[key]});
+                }
+                rowChampionship = [...rowChampionship, tempObj];
+            });
+            this.rowChampionship = rowChampionship; 
+            isLoading = false;
+            console.log('HOME_CARD_ROWS >>> ' + JSON.stringify(rowChampionship));
+        }
         
     }
 

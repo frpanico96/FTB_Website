@@ -56,7 +56,7 @@ class HomeAccordionTable extends Component
 
     renderRows = () =>
     {
-        console.log('ROWS_TABLE >>>' + JSON.stringify(this.props.rows));
+        console.log('HOME-ACCORDION-TABLE_ROWS_TABLE >>>' + JSON.stringify(this.props.rows));
         const rows = this.props.rows.map( (row) => <HomeAccordionTableRow row={row} key={counter++}/>);
         return rows;
     }

@@ -1,8 +1,11 @@
 import React,{Component} from "react";
 
 
+let counter = 0;
+
 class HomeAccordionTableRow extends Component
 {
+
     constructor(props)
     {
         super(props);
@@ -24,7 +27,11 @@ class HomeAccordionTableRow extends Component
     renderRow = () =>
     {
         console.log('ROWS >>> ' + JSON.stringify(this.props.row));
-        const rows = this.props.row.map( (singleRow) => <td key={singleRow.value}>{singleRow.value}</td>);
+        let rows;
+        if(this.props.row !== null && this.props.row !== undefined)
+        {
+            rows = this.props.row.map( (singleRow) => <td key={counter++}>{singleRow.value}</td>);
+        }
         return rows;
     }
 }
